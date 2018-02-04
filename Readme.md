@@ -1,5 +1,42 @@
 
-Windows System Prep
+[![Build Status](https://travis-ci.org/softasap/sa-box-bootstrap.svg?branch=master)](https://travis-ci.org/softasap/sa-box-bootstrap)
+
+
+Example of usage:
+
+Simple
+
+```YAML
+
+  roles:
+     - {
+         role: "sa-box-bootstrap-win",
+         timezone: "Europe/Kiev"
+       }
+
+
+```
+
+Advanced
+
+```YAML
+
+  vars:
+    - root_dir: ..
+    - timezone: "Europe/Kiev"
+
+  pre_tasks:
+    - debug: msg="Pre tasks section"
+
+  roles:
+     - {
+         role: "sa-box-bootstrap-win",
+         timezone: "Europe/Kiev",
+       }
+
+```
+
+## Windows System Prep
 
 Unless you haven't proceeded yet, make sure you prepared system according steps at  http://docs.ansible.com/ansible/latest/intro_windows.html#windows-system-prep
 
@@ -31,3 +68,8 @@ Pass the `-SkipNetworkProfileCheck` switch to configure winrm to listen on PUBLI
 powershell.exe -File ConfigureRemotingForAnsible.ps1 -SkipNetworkProfileCheck
 ```
 To troubleshoot the ConfigureRemotingForAnsible.ps1 writes every change it makes to the Windows EventLog (useful when run unattendedly). Additionally the -Verbose option can be used to get more information on screen about what it is doing.
+
+# Points of interest
+
+You can reuse this playbook to create your own box bootstaping projects, and
+reuse the role to configure your environments quicker in secure way with ansible
