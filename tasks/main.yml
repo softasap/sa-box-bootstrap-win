@@ -1,2 +1,48 @@
 ---
 # tasks file for sa-box-bootstrap-win
+
+  - name: Bootstrap | Install win_dsc custom resources
+    win_psmodule:
+      name: "{{item}}"
+      state: present
+    with_items: "{{windsc_resources}}"
+
+  - name: Bootstrap | set default timezone to {{timezone}}
+    win_timezone:
+      timezone: "{{timezone}}"
+
+  - name: Bootstrap | Ensure NetFramework 3.5 installed
+    win_dsc:
+      resource_name: WindowsFeature
+      name: NET-Framework-Core
+      ensure: present
+
+  - name: Bootstrap | Install choco
+    win_dsc:
+      resource_name: cChocoInstaller
+      InstallDir: "{{choco_install_dir | default('c:\\choco')}}"
+      DependsOn: "[WindowsFeature]NetFrameworkCore"
+    when: option_install_choco
+
+  - name: Bootstrap | Install core choco packages
+    win_dsc:
+      resource_name: cChocoPackageInstaller
+      Name: "{{item}}"
+      DependsOn: "[cChocoInstaller]installChoco"
+    with_items: "{{choco_core_packages}}"
+    when: option_install_choco
+
+  - name: Bootstrap | Install custom choco packages
+    win_dsc:
+      resource_name: cChocoPackageInstaller
+      Name: "{{item}}"
+      DependsOn: "[cChocoInstaller]installChoco"
+    with_items: "{{choco_custom_packages}}"
+    when: option_install_choco
+
+  - name: Bootstrap | Install windows features
+    win_dsc:
+      resource_name: WindowsFeature
+      name: NET-Framework-Core
+      ensure: present
+    with_items: "{{windows_features}}"

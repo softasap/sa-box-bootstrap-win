@@ -1,2 +1,39 @@
 ---
 # defaults file for sa-box-bootstrap-win
+
+option_install_choco: true
+
+windsc_resources:
+  - PSDesiredStateConfiguration
+  - cChoco
+  - xNetworking
+
+windows_features:
+  -  "IIS-BasicAuthentication"
+  -  "IIS-DefaultDocument"
+  -  "IIS-DirectoryBrowsing"
+  -  "IIS-HttpCompressionDynamic"
+  -  "IIS-HttpCompressionStatic"
+  -  "IIS-HttpErrors"
+  -  "IIS-HttpLogging"
+  -  "IIS-ISAPIExtensions"
+  -  "IIS-ISAPIFilter"
+  -  "IIS-ManagementConsole"
+  -  "IIS-RequestFiltering"
+  -  "IIS-StaticContent"
+  -  "IIS-WebSockets"
+  -  "IIS-WindowsAuthentication"
+
+# timezone: "Central European Standard Time"
+
+choco_install_dir: "c:\\choco"
+
+choco_core_packages:
+  - chocolatey-core.extension
+  - far
+  - git
+  - conemu
+  - winrar
+  - 7zip.install
+
+choco_custom_packages: []
