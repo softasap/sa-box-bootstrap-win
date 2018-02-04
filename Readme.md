@@ -1,0 +1,33 @@
+
+Windows System Prep
+
+Unless you haven't proceeded yet, make sure you prepared system according steps at  http://docs.ansible.com/ansible/latest/intro_windows.html#windows-system-prep
+
+In order for Ansible to manage your windows machines, you will have to enable and configure PowerShell remoting.
+To automate the setup of WinRM, you can run the examples/scripts/ConfigureRemotingForAnsible.ps1 script on the remote machine in a PowerShell console as an administrator.
+
+The example script accepts a few arguments which Admins may choose to use to modify the default setup slightly, which might be appropriate in some cases.
+
+Pass the `-CertValidityDays` option to customize the expiration date of the generated certificate:
+```CMD
+powershell.exe -File ConfigureRemotingForAnsible.ps1 -CertValidityDays 100
+```
+
+Pass the `-EnableCredSSP` switch to enable CredSSP as an authentication option:
+
+```CMD
+powershell.exe -File ConfigureRemotingForAnsible.ps1 -EnableCredSSP
+```
+
+Pass the `-ForceNewSSLCert` switch to force a new SSL certificate to be attached to an already existing winrm listener. (Avoids SSL winrm errors on syspreped Windows images after the CN changes):
+
+```CMD
+powershell.exe -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
+```
+
+Pass the `-SkipNetworkProfileCheck` switch to configure winrm to listen on PUBLIC zone interfaces. (Without this option, the script will fail if any network interface on device is in PUBLIC zone):
+
+```CMD
+powershell.exe -File ConfigureRemotingForAnsible.ps1 -SkipNetworkProfileCheck
+```
+To troubleshoot the ConfigureRemotingForAnsible.ps1 writes every change it makes to the Windows EventLog (useful when run unattendedly). Additionally the -Verbose option can be used to get more information on screen about what it is doing.
