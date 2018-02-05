@@ -1,5 +1,9 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
+
   roles:
-    - sa-box-bootstrap-win
+    - {
+        role: "role_under_test",
+        docker_test: true
+      }
+
