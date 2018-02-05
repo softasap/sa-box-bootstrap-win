@@ -1,0 +1,23 @@
+---
+
+  - name: Ensure winfiles directory present
+    win_dsc:
+      resource_name: File
+      Type: Directory
+      Ensure: Present
+      DestinationPath: "{{powershell_roaming_profile_path}}"
+
+  - name: Clone roaming profile
+    win_shell: "git clone {{powershell_roaming_profile_repo}} {{powershell_roaming_profile_path}}"
+    register: roaming_clone_result
+    changed_when: "roaming_clone_result.stdout|search('Cloning into')"
+    failed_when: "roaming_clone_result.stdout|search('already exists and is not an empty directory.')"
+    ignore_errors: true
+    args:
+      chdir: "C:\\Program Files\\Git\\bin\\"
+
+  - name: Initialize roaming profile
+    win_shell: Powershell.exe -File init.ps1
+    args:
+      chdir: "{{powershell_roaming_profile_path}}"
+    when: not roaming_clone_result | failed

@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/softasap/sa-box-bootstrap.svg?branch=master)](https://travis-ci.org/softasap/sa-box-bootstrap)
+[![Build Status](https://travis-ci.org/softasap/sa-box-bootstrap-win.svg?branch=master)](https://travis-ci.org/softasap/sa-box-bootstrap-win)
 
 
 Example of usage:
@@ -8,10 +8,27 @@ Simple
 
 ```YAML
 
+  vars:
+    - box_choco_core_packages:
+        - chocolatey-core.extension
+        - far
+        - git
+        - conemu
+        - winrar
+        - 7zip.install
+
+
   roles:
      - {
          role: "sa-box-bootstrap-win",
-         timezone: "Europe/Kiev"
+         timezone: "Central European Standard Time",
+
+         option_install_choco: true,
+         choco_core_packages: "{{box_choco_core_packages}}",
+
+         option_install_roaming_profile: true,
+         powershell_roaming_profile: "https://github.com/Voronenko/winfiles.git"         
+
        }
 
 
@@ -23,7 +40,42 @@ Advanced
 
   vars:
     - root_dir: ..
-    - timezone: "Europe/Kiev"
+    - timezone: "Central European Standard Time"
+
+    - box_windows_iis_features:
+      -  "IIS-BasicAuthentication"
+      -  "IIS-DefaultDocument"
+      -  "IIS-DirectoryBrowsing"
+      -  "IIS-HttpCompressionDynamic"
+      -  "IIS-HttpCompressionStatic"
+      -  "IIS-HttpErrors"
+      -  "IIS-HttpLogging"
+      -  "IIS-ISAPIExtensions"
+      -  "IIS-ISAPIFilter"
+      -  "IIS-ManagementConsole"
+      -  "IIS-RequestFiltering"
+      -  "IIS-StaticContent"
+      -  "IIS-WebSockets"
+      -  "IIS-WindowsAuthentication"
+
+    - box_windows_aspnet_features:
+      - "NetFx3"
+      - "NetFx4-AdvSrvs"
+      - "NetFx4Extended-ASPNET45"
+      - "IIS-NetFxExtensibility"
+      - "IIS-NetFxExtensibility45"
+      - "IIS-ASPNET"
+      - "IIS-ASPNET45"
+
+    - box_choco_core_packages:
+        - chocolatey-core.extension
+        - far
+        - git
+        - conemu
+        - winrar
+        - 7zip.install
+
+
 
   pre_tasks:
     - debug: msg="Pre tasks section"
@@ -32,6 +84,18 @@ Advanced
      - {
          role: "sa-box-bootstrap-win",
          timezone: "Europe/Kiev",
+
+         option_install_choco: true,
+         option_install_iis_features: true,
+         option_install_aspnet_features: true,
+
+         windows_iis_features: "{{box_windows_iis_features}}",
+         windows_aspnet_features: "{{box_windows_aspnet_features}}",
+         choco_core_packages: "{{box_choco_core_packages}}",
+
+         option_install_roaming_profile: true,
+         powershell_roaming_profile: "https://github.com/Voronenko/winfiles.git"         
+         
        }
 
 ```
