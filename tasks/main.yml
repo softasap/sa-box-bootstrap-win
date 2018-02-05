@@ -10,6 +10,7 @@
   - name: Bootstrap | set default timezone to {{timezone}}
     win_timezone:
       timezone: "{{timezone}}"
+    when: timezone is defined
 
   - name: Bootstrap | Ensure NetFramework 3.5 installed
     win_dsc:
@@ -40,9 +41,22 @@
     with_items: "{{choco_custom_packages}}"
     when: option_install_choco
 
-  - name: Bootstrap | Install windows features
+  - name: Bootstrap | Install windows features for IIS
     win_dsc:
-      resource_name: WindowsFeature
-      name: NET-Framework-Core
-      ensure: present
-    with_items: "{{windows_features}}"
+      resource_name: WindowsOptionalFeature
+      name: "{{item}}"
+      ensure: Enable
+    with_items: "{{windows_iis_features}}"
+    when: option_install_iis_features
+
+  - name: Bootstrap | Install windows features for ASP.NET
+    win_dsc:
+      resource_name: WindowsOptionalFeature
+      name: "{{item}}"
+      ensure: Enable
+    with_items: "{{windows_aspnet_features}}"
+    when: option_install_aspnet_features
+
+
+  - include_tasks: tasks_install_roaming_profile.yml
+    when: option_install_roaming_profile

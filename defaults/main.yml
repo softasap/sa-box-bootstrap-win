@@ -2,13 +2,19 @@
 # defaults file for sa-box-bootstrap-win
 
 option_install_choco: true
+option_install_iis_features: false
+option_install_aspnet_features: false
+option_install_roaming_profile: false
+
+powershell_roaming_profile_repo: "https://github.com/Voronenko/winfiles.git"
+powershell_roaming_profile_path: "c:\\batch\\winfiles"
 
 windsc_resources:
   - PSDesiredStateConfiguration
   - cChoco
   - xNetworking
 
-windows_features:
+windows_iis_features:
   -  "IIS-BasicAuthentication"
   -  "IIS-DefaultDocument"
   -  "IIS-DirectoryBrowsing"
@@ -23,6 +29,16 @@ windows_features:
   -  "IIS-StaticContent"
   -  "IIS-WebSockets"
   -  "IIS-WindowsAuthentication"
+
+windows_aspnet_features:
+  - "NetFx3"
+  - "NetFx4-AdvSrvs"
+  - "NetFx4Extended-ASPNET45"
+  - "IIS-NetFxExtensibility"
+  - "IIS-NetFxExtensibility45"
+  - "IIS-ASPNET"
+  - "IIS-ASPNET45"
+
 
 # timezone: "Central European Standard Time"
 

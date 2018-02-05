@@ -18,7 +18,9 @@
   roles:
      - {
          role: "sa-box-bootstrap-win",
-         timezone: "Central European Standard Time"
+         timezone: "Central European Standard Time",
+         option_install_roaming_profile: true,
+         powershell_roaming_profile: "https://github.com/Voronenko/winfiles.git"
        }
 
 
