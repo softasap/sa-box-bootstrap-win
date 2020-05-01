@@ -15,20 +15,20 @@ windsc_resources:
   - xNetworking
 
 windows_iis_features:
-  -  "IIS-BasicAuthentication"
-  -  "IIS-DefaultDocument"
-  -  "IIS-DirectoryBrowsing"
-  -  "IIS-HttpCompressionDynamic"
-  -  "IIS-HttpCompressionStatic"
-  -  "IIS-HttpErrors"
-  -  "IIS-HttpLogging"
-  -  "IIS-ISAPIExtensions"
-  -  "IIS-ISAPIFilter"
-  -  "IIS-ManagementConsole"
-  -  "IIS-RequestFiltering"
-  -  "IIS-StaticContent"
-  -  "IIS-WebSockets"
-  -  "IIS-WindowsAuthentication"
+  - "IIS-BasicAuthentication"
+  - "IIS-DefaultDocument"
+  - "IIS-DirectoryBrowsing"
+  - "IIS-HttpCompressionDynamic"
+  - "IIS-HttpCompressionStatic"
+  - "IIS-HttpErrors"
+  - "IIS-HttpLogging"
+  - "IIS-ISAPIExtensions"
+  - "IIS-ISAPIFilter"
+  - "IIS-ManagementConsole"
+  - "IIS-RequestFiltering"
+  - "IIS-StaticContent"
+  - "IIS-WebSockets"
+  - "IIS-WindowsAuthentication"
 
 windows_aspnet_features:
   - "NetFx3"
@@ -38,7 +38,6 @@ windows_aspnet_features:
   - "IIS-NetFxExtensibility45"
   - "IIS-ASPNET"
   - "IIS-ASPNET45"
-
 
 # timezone: "Central European Standard Time"
 
